@@ -1,10 +1,67 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <unistd.h> //biblioteca para o sleep no Linux
 
-int main()
-{
+typedef struct aluno aluno;
 
+struct aluno {
+	int ra;
+	char nome[50];
+	double nota;
+};
 
+void cadastro(aluno *);
 
-  return 0;
+int main() {
+	int maxalunos;
+	int op;
+	printf("Quantos alunos deseja configurar para o maximo? ");
+	scanf("%d", &maxalunos);
+
+    aluno *listaAlunos;
+    listaAlunos = (aluno *) malloc(maxalunos * sizeof(aluno));
+
+    do{
+        printf("\t\tMenu do sistema\n1.Cadastrar aluno\n2...\n\n");
+        scanf("%d", &op);
+
+        if(op > 0 && op < 6)
+        {
+            switch(op)
+            {
+            case 1:
+                cadastro(listaAlunos);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            }
+        }
+        else
+            printf("Opcao invalida");
+    }while(op != 5);
+
+    free(listaAlunos);
+	return 0;
+}
+
+void cadastro(aluno *cadEstud){
+    printf("----Cadastro de Aluno----\nInsira o nome: ");
+    getchar();
+    scanf("%[^\n]s", cadEstud->nome);
+    printf("Insira o RA: ");
+    scanf("%d", &cadEstud->ra);
+    printf("Insira a nota: ");
+    scanf("%lf", &cadEstud->nota);
+
+    printf("Cadastro realizado com sucesso!\n");
+    //printf("%d\n%s\n%.2lf", cadEstud->ra, cadEstud->nome, cadEstud->nota);
+    //sleep(2);
+    //system("cls");
 }
