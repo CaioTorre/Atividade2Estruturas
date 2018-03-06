@@ -12,6 +12,7 @@ struct alunoS {
 typedef struct alunoS aluno;
 
 void cadastro(aluno *, int *, int);
+void apagacadastro(aluno *, int*);
 void buscaRA(aluno *, int);
 void buscaNome(aluno *, int);
 void imprimirTodos(aluno *, int);
@@ -40,6 +41,7 @@ int main() {
 	        		cadastro(listaAlunos, &alunoscadastrados, maxalunos);
 	        	        break;
 	        	case 2:
+				apagacadastro(listaAlunos, &alunoscadastrados);
 	        	        break;
 	            	case 3:
 				buscaRA(listaAlunos, alunoscadastrados);
@@ -84,6 +86,45 @@ void cadastro(aluno *cadEstud, int *pos, int m){
     //printf("%d\n%s\n%.2lf", cadEstud->ra, cadEstud->nome, cadEstud->nota);
     //sleep(2);
     //system("cls");
+}
+
+void apagacadastro(aluno *lista, int *tam){
+	if (*tam > 0) {
+		int i, todel;
+		char confirma;
+		//aluno temp;
+		printf("Qual aluno deseja excluir?\n\n");
+		for (i = 0; i < *tam; i++){
+			printf("%d - %d\t%s\t%.2lf\n", i+1, lista[i].ra, lista[i].nome, lista[i].nota);
+		}
+		do {
+			printf("\nDigite o codigo correspondente: ");
+			scanf("%d", &todel);
+			if (todel < 1 || todel > *tam) {
+				printf("Codigo invalido, tente novamente...\n");
+			}
+		} while (todel < 1 || todel > *tam);
+		todel--;
+		
+		printf("Certeza que deseja excluir o aluno %s (RA %d)? (s/n) ", lista[todel].nome, lista[todel].ra);
+		getchar();
+		scanf("%c", &confirma);
+
+		if (confirma == 's') {
+			for (i = todel; i < *tam - 1; i++){
+				lista[i].ra = lista[i+1].ra;
+				lista[i].nota = lista[i+1].nota;
+				strcpy(lista[i].nome, lista[i+1].nome);
+			}
+			*tam = *tam - 1;
+			printf("Aluno excluido com sucesso!\n\n");
+		} else {
+			printf("Operacao cancelada\n\n");
+		}
+	} else {
+		printf("Nao ha alunos cadastrados!\n\n");
+	}
+
 }
 
 void buscaRA(aluno *lista, int tam){
