@@ -54,7 +54,8 @@ int main() {
 }
 
 int cadastro(aluno **prev){
-	aluno *aux;
+	aluno *aux, *aux2;
+	aux2 = *prev;
 	aux = malloc(sizeof(aluno));
 	if (!aux) {printf("Memoria insuficiente!\n"); return (-1);}
 	printf("----Cadastro de Aluno----\nInsira o nome: ");
@@ -65,8 +66,22 @@ int cadastro(aluno **prev){
 	printf("Insira a nota: ");
 	scanf("%f", &aux->nota);
 
-	aux->prox = (*prev);
-	(*prev) = aux;
+	if (!(*prev)){ //New list
+		aux->prox = (*prev);
+		(*prev) = aux;
+	} else {
+		if (aux->ra < (*prev)->ra) { //Will be placed first
+			aux->prox = (*prev);
+			(*prev) = aux;
+		} else { //Literally anywhere else
+			while (aux2->prox && aux2->prox->ra < aux->ra) aux2 = aux2->prox;
+
+			aux->prox = aux2->prox;
+			aux2->prox = aux;
+		}
+	}
+	//aux->prox = (*prev);
+	//(*prev) = aux;
 
 	return 1;
 }
