@@ -21,6 +21,7 @@ int cadastro(aluno **);
 int buscaRA(aluno *);
 int buscaNome(aluno *);
 void imprimirTodos(aluno *);
+void imprimirReverso(aluno *);
 void strlwr(char *);
 
 int main() {
@@ -42,7 +43,7 @@ int main() {
 			buscaNome(start);
                 	break;
             	case 4:
-			imprimirTodos(start);
+			imprimirReverso(start);
                 	break;
 		case 5: 
 			printf("Encerrando...\n\n");
@@ -94,6 +95,13 @@ void imprimirTodos(aluno *ini) {
 			imprimirTodos(ini->prox);
 			printf("\tRA: %d - %s;\t Nota: %.2f\n", ini->ra, ini->nome, ini->nota);
 		}
+	}
+}
+
+void imprimirReverso(aluno *ini) {
+	if (ini) {
+		printf("\tRA: %d - %s;\t Nota: %.2f\n", ini->ra, ini->nome, ini->nota);
+		imprimirReverso(ini->prox);
 	}
 }
 
