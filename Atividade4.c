@@ -38,7 +38,7 @@ void insereFim (No **pLista, int n) {
 void insereK (No **pLista, int n, int k) {
 	int i;
 	No *aux = *pLista;
-	for (i = 0; i < k; i++) aux = aux->prox;
+	for (i = 0; i < k - 1; i++) if (aux->prox) aux = aux->prox;
 	No *aux2 = (No*)malloc(sizeof(No));
 	No *aux3 = aux->prox;
 	aux->prox = aux2;
@@ -146,10 +146,20 @@ void excluiK (No **pLista, int k) {
 // Questao 14
 void excluiN (No **pLista, int n) {
 	No *aux = *pLista;
-	if (aux->chave == n) {if((*pLista)->prox!=NULL)*pLista = (*pLista)->prox; free(aux); else (*pLista)->prox=NULL;}
-	else
-	{aux=(*pLista)->prox;
-	excluiN(&aux,n);}
+	No *aux2 = *pLista;
+	if (aux->chave == n) {*pLista = (*pLista)->prox; free(aux);} else {
+		if (aux->prox) {
+			aux = aux->prox;
+			while (aux) {
+				if (aux->chave == n) {
+					aux2->prox = aux->prox;
+					free(aux);
+				}
+				aux2 = aux2->prox;
+				aux = aux->prox;
+			}
+		}
+	}
 }
 
 // Cria uma lista vazia
