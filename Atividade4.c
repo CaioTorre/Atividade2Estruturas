@@ -100,10 +100,12 @@ int soma (No *Lista) {
 
 // Questao 10
 float media (No *Lista) {
-	int i = 0, s = 0;
+	int i = 0;
+	float s = 0;
 	No *aux = Lista;
 	while (aux) {s = s + aux->chave; i++; aux = aux->prox;}
-	return (s/i);
+	if (i) return (s/i);
+	return 0;
 }
 
 // Questao 11
