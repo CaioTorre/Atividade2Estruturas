@@ -6,6 +6,10 @@
  * $ gcc -DDEBUG -g Atividade4.c -o Atividade4
  * 
  */
+//Bruno Guilherme Marini Spirlandeli    - RA 17037607
+//Caio Lima e Souza Della Torre Sanches - RA 17225285
+//Gabriela Nelsina Vicente              - RA 17757089
+//Marcos Aurélio Tavares de Sousa Filho - RA 17042284
 
 #include<stdio.h>
 #include<stdlib.h>
